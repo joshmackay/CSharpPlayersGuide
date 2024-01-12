@@ -27,9 +27,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheColor", "TheColor\TheCol
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheCard", "TheCard\TheCard.csproj", "{F9CFE2A0-F50D-441E-9B4B-6970D826E04E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheLockedDoor", "TheLockedDoor\TheLockedDoor.csproj", "{09258D7E-58FC-4FA9-B557-DFFDDC15E074}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheLockedDoor", "TheLockedDoor\TheLockedDoor.csproj", "{09258D7E-58FC-4FA9-B557-DFFDDC15E074}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThePasswordValidator", "ThePasswordValidator\ThePasswordValidator.csproj", "{32F99705-0219-4257-9BF3-6CA2846FD805}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThePasswordValidator", "ThePasswordValidator\ThePasswordValidator.csproj", "{32F99705-0219-4257-9BF3-6CA2846FD805}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Testing", "Testing\Testing.csproj", "{910CB168-394D-48A0-A96C-BC01836F11E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PackingInventory", "PackingInventory\PackingInventory.csproj", "{88FF2D6D-B51E-4328-9117-FD0B3AB100B6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,6 +97,14 @@ Global
 		{32F99705-0219-4257-9BF3-6CA2846FD805}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32F99705-0219-4257-9BF3-6CA2846FD805}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32F99705-0219-4257-9BF3-6CA2846FD805}.Release|Any CPU.Build.0 = Release|Any CPU
+		{910CB168-394D-48A0-A96C-BC01836F11E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{910CB168-394D-48A0-A96C-BC01836F11E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{910CB168-394D-48A0-A96C-BC01836F11E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{910CB168-394D-48A0-A96C-BC01836F11E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88FF2D6D-B51E-4328-9117-FD0B3AB100B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88FF2D6D-B51E-4328-9117-FD0B3AB100B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88FF2D6D-B51E-4328-9117-FD0B3AB100B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88FF2D6D-B51E-4328-9117-FD0B3AB100B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
