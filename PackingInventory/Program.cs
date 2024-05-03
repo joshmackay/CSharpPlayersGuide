@@ -14,6 +14,7 @@ Pack pack = new Pack(maxWeight, maxVolume, maxItems);
 
 while (true)
 {
+    Console.WriteLine(pack.ToString());
     Console.WriteLine("Select an item for your pack: ");
     Console.WriteLine("1. Arrow");
     Console.WriteLine("2. Bow");
@@ -48,9 +49,56 @@ while (true)
 
 
 
-public class Arrow : InventoryItem{ public Arrow() : base(0.1f, 0.05f) { } }
-public class Bow : InventoryItem { public Bow() : base(0.1f, 0.05f) { } }
-public class Rope : InventoryItem { public Rope() : base(0.1f, 0.05f) { } }
-public class Food : InventoryItem { public Food() : base(0.1f, 0.05f) { } }
-public class Water : InventoryItem { public Water() : base(0.1f, 0.05f) { } }
-public class Sword : InventoryItem { public Sword() : base(0.1f, 0.05f) { } }
+public class Arrow : InventoryItem
+{
+    public Arrow() : base(0.1f, 0.05f) { }
+    public override string ToString()
+    {
+        return "Arrow";
+    }
+}
+
+public class Bow : InventoryItem
+{
+    public Bow() : base(0.1f, 0.05f) { }
+    public override string ToString()
+    {
+        return "Bow";
+    }
+}
+
+public class Rope : InventoryItem
+{
+    public Rope() : base(0.1f, 0.05f) { }
+    public override string ToString()
+    {
+        return "Rope";
+    }
+}
+
+public class Food : InventoryItem
+{
+    public Food() : base(0.1f, 0.05f) { }
+    public override string ToString()
+    {
+        return "Food";
+    }
+}
+
+public class Water : InventoryItem
+{
+    public Water() : base(0.1f, 0.05f) { }
+    public override string ToString()
+    {
+        return "Water";
+    }
+}
+
+public class Sword : InventoryItem
+{
+    public Sword() : base(0.1f, 0.05f) { }
+    public override string ToString()
+    {
+        return "Sword";
+    }
+}

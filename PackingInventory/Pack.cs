@@ -42,5 +42,18 @@ namespace PackingInventory
                 return true;
             }
         }
+
+        public override string ToString()
+        {
+            string contents = "Pack contains ";
+            if (ItemCount == 0) contents += "nothing.";
+
+            for(int i = 0; i < ItemCount; i++)
+            {
+                contents += Items[i].ToString() + " ";
+            }
+
+            return contents;
+        }
     }
 }

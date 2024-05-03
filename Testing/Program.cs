@@ -1,32 +1,26 @@
 ﻿
-GameObject obj = new Asteroid();
 
-//Asteroid? asteroid = obj as Asteroid;
+/*Point point = new Point(1, 2);
 
-if (obj is Asteroid asteroid)
+Console.WriteLine(point.X);
+
+point.X = 10;
+Console.WriteLine(point.X);
+point = ShiftLeft2(point);
+
+Console.WriteLine(point.X);
+
+void ShiftLeft(Point p) => p.X -= 10;
+Point ShiftLeft2(Point p) => new Point(p.X - 10, p.Y);
+
+public struct Point
 {
-    Console.WriteLine("in");
+    private readonly int X;
+    private readonly int Y;
 
-}
-
-
-
-public class GameObject
-{
-    public int X { get; set; }
-    public int Y { get; set; }
-
-    public GameObject()
+    public Point(int x, int y)
     {
+        this.X = x;
+        this.Y = y;
     }
-}
-
-public class Asteroid : GameObject
-{
-    public int Size { get; set; }
-
-    public Asteroid()
-    {
-
-    }
-}
+}*/
