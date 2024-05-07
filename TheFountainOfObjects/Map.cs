@@ -8,7 +8,9 @@ namespace TheFountainOfObjects
 {
     public class Map
     {
+        public Random Random = new Random();
         private readonly RoomType[,] _rooms;
+        public Monster[,] MonsterLocations { get; set; }
         public int MapRows { get; }
         public int MapCols { get; }
 
@@ -17,10 +19,18 @@ namespace TheFountainOfObjects
             MapRows = rows;
             MapCols = columns;
             _rooms = new RoomType[rows, columns];
+            MonsterLocations = new Monster[rows, columns];
 
             SetRoomTypeAtLocation(RoomType.Exit, new Location(0, 0));
             SetRoomTypeAtLocation(RoomType.Fountain, GetRandomEmptyLocation());
             GeneratePits(totalPits);
+        }
+
+        public Location GetRandomLocation()
+        {
+            int row = Random.Next(MapRows);
+            int col = row != 0 ? Random.Next(MapCols) : Random.Next(1, MapCols);
+            return new Location(row, col);
         }
 
         public RoomType GetRoomTypeAtLocation(Location location)
@@ -45,6 +55,12 @@ namespace TheFountainOfObjects
                 }
             }
             return locations;
+        }
+
+        public bool DoesRoomContainMonster(Location location, Game game)
+        {
+            if (game.Monsters.FirstOrDefault(monster => monster.Location == location) == null) return false;
+            return true;
         }
 
         public void SetRoomTypeAtLocation(RoomType type, Location location)

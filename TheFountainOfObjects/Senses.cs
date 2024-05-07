@@ -71,7 +71,18 @@ namespace TheFountainOfObjects
     {
         public bool CanSense(Game game)
         {
-            int rowDiff = Math.Abs(game.Player.Location.Row)
+            foreach (Monster monster in game.Monsters)
+            {
+                if (monster is Maelstrom && monster.IsAlive)
+                {
+                    if (Math.Abs(game.Player.Location.Row - monster.Location.Row) <= 1 && Math.Abs(game.Player.Location.Column - monster.Location.Column) <= 1)
+                    {
+                        return true;
+                    }
+
+                }
+            }
+            return false;
         }
         public void DisplaySense(Game game)
         {

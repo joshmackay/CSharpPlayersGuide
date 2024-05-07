@@ -13,9 +13,9 @@ namespace TheFountainOfObjects
         public Map Map { get; }
         public bool IsFountainActive { get; set; } = false;
         public ISense[] Senses { get; set; }
-        public List<Monster> Monsters { get; set; }
+        public List<Monster> Monsters { get; set; } = new List<Monster>();
 
-        public Game(Player player, Map map)
+        public Game(Player player, Map map, int totalMaelstroms)
         {
             Player = player;
             Map = map;
@@ -26,7 +26,11 @@ namespace TheFountainOfObjects
                 new ExitSense(),
                 new MaelstromWindSense()
             ];
-            Monsters = new List<Monster>();
+
+            for (int i = 0; i < totalMaelstroms; i++)
+            {
+                Monsters.Add(new Maelstrom(Map.GetRandomLocation()));
+            }
         }
 
         public void Run()
@@ -37,9 +41,19 @@ namespace TheFountainOfObjects
                 ICommand command = GetCommand();
                 command.Execute(this);
 
-                if (CurrentRoom == RoomType.Pit) Player.Kill("You died. Game over.");
+                if (CurrentRoom == RoomType.Pit)
+                {
+                    ConsoleUtilities.WriteLine("You fell into a pit....", ConsoleColor.Magenta);
+                    Player.Kill("You died. Game over.");
+                }
 
-
+                foreach (Monster m in Monsters)
+                {
+                    if (m.Location == Player.Location)
+                    {
+                        m.Activate(this);
+                    }
+                }
             }
 
             if (HasWon)
