@@ -52,4 +52,36 @@ namespace TheFountainOfObjects
         }
     }
 
+    public class AttackCommand : ICommand
+    {
+        public Direction AttackDirection { get; }
+
+        public AttackCommand(Direction shootDirection)
+        {
+            AttackDirection = shootDirection;
+        }
+
+        public void Execute(Game game)
+        {
+            var playerLoc = game.Player.Location;
+            var targetLoc = AttackDirection switch
+            {
+                Direction.North => new Location(playerLoc.Row - 1, playerLoc.Column),
+                Direction.East => new Location(playerLoc.Row, playerLoc.Column + 1),
+                Direction.South => new Location(playerLoc.Row + 1, playerLoc.Column),
+                Direction.West => new Location(playerLoc.Row, playerLoc.Column - 1)
+            };
+
+            foreach (var monster in game.Map.Monsters)
+            {
+                if (monster.Location == targetLoc)
+                {
+                    monster.IsAlive = false;
+                    ConsoleUtilities.WriteLine($"You killed a {monster.GetType().Name}", ConsoleColor.DarkYellow);
+                }
+            }
+
+        }
+    }
+
 }

@@ -25,5 +25,15 @@ namespace TheFountainOfObjects
 
     public record Location(int Row, int Column);
 
+    public class RoomDetails
+    {
+        public RoomType roomType;
+        public Location location;
 
+        public RoomDetails(RoomType roomType, Location location)
+        {
+            this.roomType = roomType;
+            this.location = location;
+        }
+    }
 }

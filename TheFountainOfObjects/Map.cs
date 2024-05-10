@@ -8,66 +8,70 @@ namespace TheFountainOfObjects
 {
     public class Map
     {
-        public Random Random = new Random();
-        private readonly RoomType[,] _rooms;
-        public Monster[,] MonsterLocations { get; set; }
+        private Random Random = new Random();
+        private List<RoomDetails> _roomsList;
         public int MapRows { get; }
         public int MapCols { get; }
+        public List<Monster> Monsters { get; set; } = new List<Monster>();
 
-        public Map(int rows, int columns, int totalPits, int totalMaelstroms)
+
+        public Map(int rows, int columns, int totalPits, int totalMaelstroms, int totalAmaroks)
         {
             MapRows = rows;
             MapCols = columns;
-            _rooms = new RoomType[rows, columns];
-            MonsterLocations = new Monster[rows, columns];
+            _roomsList = new List<RoomDetails>();
+
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < columns; j++)
+                {
+                    _roomsList.Add(new RoomDetails(RoomType.Normal, new Location(i, j)));
+                }
+            }
 
             SetRoomTypeAtLocation(RoomType.Exit, new Location(0, 0));
             SetRoomTypeAtLocation(RoomType.Fountain, GetRandomEmptyLocation());
             GeneratePits(totalPits);
-        }
 
-        public Location GetRandomLocation()
-        {
-            int row = Random.Next(MapRows);
-            int col = row != 0 ? Random.Next(MapCols) : Random.Next(1, MapCols);
-            return new Location(row, col);
+            for (int i = 0; i < totalMaelstroms; i++)
+            {
+                Monsters.Add(new Maelstrom(PlaceMonster()));
+            }
+
+            for (int i = 0; i < totalAmaroks; i++)
+            {
+                Monsters.Add(new Amarok(GetRandomEmptyLocation()));
+            }
         }
 
         public RoomType GetRoomTypeAtLocation(Location location)
         {
-            return _rooms[location.Row, location.Column];
+            return _roomsList.FirstOrDefault(d => d.location == location).roomType;
         }
 
         public Location GetRandomEmptyLocation()
         {
-            List<Location> locations = GetEmptyRoomLocations();
-            return locations.ElementAt(new Random().Next(0, locations.Count - 1));
+            var emptyRooms = GetEmptyRoomLocations();
+            var randNum = Random.Next(emptyRooms.Count);
+            return emptyRooms.ElementAt(randNum).location;
         }
 
-        public List<Location> GetEmptyRoomLocations()
+        public List<RoomDetails> GetEmptyRoomLocations()
         {
-            List<Location> locations = new List<Location>();
-            for (int i = 0; i < _rooms.GetLength(0); i++)
-            {
-                for (int j = 0; j < _rooms.GetLength(1); j++)
-                {
-                    if (_rooms[i, j] == RoomType.Normal) locations.Add(new Location(i, j));
-                }
-            }
-            return locations;
-        }
-
-        public bool DoesRoomContainMonster(Location location, Game game)
-        {
-            if (game.Monsters.FirstOrDefault(monster => monster.Location == location) == null) return false;
-            return true;
+            return _roomsList.Where(detail => detail.roomType == RoomType.Normal).ToList();
         }
 
         public void SetRoomTypeAtLocation(RoomType type, Location location)
         {
-            _rooms[location.Row, location.Column] = type;
+            _roomsList.FirstOrDefault(d => d.location == location).roomType = type;
         }
 
+        public Location PlaceMonster()
+        {
+            var availableLocations = GetEmptyRoomLocations().Where(room => Monsters.All(monster => monster.Location != room.location)).ToList();
+            var randRoom = availableLocations.ElementAt(Random.Next(availableLocations.Count));
+            return randRoom.location;
+        }
 
         public void GeneratePits(int totalPits)
         {
@@ -78,28 +82,23 @@ namespace TheFountainOfObjects
             }
         }
 
-        public bool IsLocationTaken(Location location)
-        {
-            return _rooms[location.Row, location.Column] != null ? true : false;
-        }
-
         public RoomType GetCurrentRoomType(Player player)
         {
-            return _rooms[player.Location.Row, player.Location.Column];
+            return _roomsList.FirstOrDefault(d => d.location == player.Location).roomType;
         }
 
         public RoomType GetLocationRoomType(Location location)
         {
-            return _rooms[location.Row, location.Column];
+            return _roomsList.FirstOrDefault(d => d.location == location).roomType;
         }
 
         public bool IsOnMap(Location location)
         {
             return
                 location.Row >= 0 &&
-                location.Row < _rooms.GetLength(0) &&
+                location.Row < MapRows &&
                 location.Column >= 0 &&
-                location.Column < _rooms.GetLength(1);
+                location.Column < MapCols;
         }
     }
 }

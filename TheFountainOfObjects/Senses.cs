@@ -71,11 +71,11 @@ namespace TheFountainOfObjects
     {
         public bool CanSense(Game game)
         {
-            foreach (Monster monster in game.Monsters)
+            foreach (Monster monster in game.Map.Monsters)
             {
                 if (monster is Maelstrom && monster.IsAlive)
                 {
-                    if (Math.Abs(game.Player.Location.Row - monster.Location.Row) <= 1 && Math.Abs(game.Player.Location.Column - monster.Location.Column) <= 1)
+                    if (game.IsEnemyNearby(monster.Location))
                     {
                         return true;
                     }
@@ -90,5 +90,27 @@ namespace TheFountainOfObjects
         }
     }
 
+    public class AmarokSmellSense : ISense
+    {
+        public bool CanSense(Game game)
+        {
+            foreach (Monster monster in game.Map.Monsters)
+            {
+                if (monster is Amarok && monster.IsAlive)
+                {
+                    if (game.IsEnemyNearby(monster.Location))
+                    {
+                        return true;
+                    }
 
+                }
+            }
+            return false;
+        }
+
+        public void DisplaySense(Game game)
+        {
+            ConsoleUtilities.WriteLine("You can smell the rotten stench of an amarok in a nearby room.", ConsoleColor.Magenta);
+        }
+    }
 }

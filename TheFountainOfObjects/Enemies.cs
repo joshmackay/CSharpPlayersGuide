@@ -27,7 +27,7 @@ namespace TheFountainOfObjects
 
         public override void Activate(Game game)
         {
-            
+
             int newRowPos = (game.Map.MapRows + this.Location.Row + 1) % game.Map.MapRows;
             int newColPos = (game.Map.MapCols + this.Location.Column - (2 % game.Map.MapCols)) % game.Map.MapCols;
             this.Location = new Location(newRowPos, newColPos);
@@ -41,5 +41,21 @@ namespace TheFountainOfObjects
             ConsoleUtilities.WriteLine($"The Maelstrom moved to a new location.", ConsoleColor.Magenta);
         }
 
+    }
+
+    public class Amarok : Monster
+    {
+        public Amarok(Location location) : base(location) { }
+
+        public override void Activate(Game game)
+        {
+            if (game.Player.Location == this.Location)
+            {
+                game.Player.Kill("You encountered an Amarok!");
+
+            }
+
+            ConsoleUtilities.WriteLine("You encountered an Amarok!!!", ConsoleColor.Magenta);
+        }
     }
 }

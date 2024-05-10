@@ -21,6 +21,7 @@ namespace TheFountainOfObjects
         {
             PlayerAlive = false;
             ConsoleUtilities.WriteLine(message, ConsoleColor.Red);
+            ConsoleUtilities.WriteLine("You died. GAME OVER!", ConsoleColor.Red);
         }
 
     }

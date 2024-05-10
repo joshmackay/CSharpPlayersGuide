@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace TheFountainOfObjects
@@ -13,9 +14,8 @@ namespace TheFountainOfObjects
         public Map Map { get; }
         public bool IsFountainActive { get; set; } = false;
         public ISense[] Senses { get; set; }
-        public List<Monster> Monsters { get; set; } = new List<Monster>();
 
-        public Game(Player player, Map map, int totalMaelstroms)
+        public Game(Player player, Map map)
         {
             Player = player;
             Map = map;
@@ -24,13 +24,11 @@ namespace TheFountainOfObjects
                 new FountainSense(),
                 new PitBreezeSense(),
                 new ExitSense(),
-                new MaelstromWindSense()
+                new MaelstromWindSense(),
+                new AmarokSmellSense()
             ];
 
-            for (int i = 0; i < totalMaelstroms; i++)
-            {
-                Monsters.Add(new Maelstrom(Map.GetRandomLocation()));
-            }
+
         }
 
         public void Run()
@@ -43,13 +41,12 @@ namespace TheFountainOfObjects
 
                 if (CurrentRoom == RoomType.Pit)
                 {
-                    ConsoleUtilities.WriteLine("You fell into a pit....", ConsoleColor.Magenta);
-                    Player.Kill("You died. Game over.");
+                    Player.Kill("You fell into a pit....");
                 }
 
-                foreach (Monster m in Monsters)
+                foreach (Monster m in Map.Monsters)
                 {
-                    if (m.Location == Player.Location)
+                    if (m.Location == Player.Location && m.IsAlive == true)
                     {
                         m.Activate(this);
                     }
@@ -91,6 +88,10 @@ namespace TheFountainOfObjects
                 if (command == "move south") return new MoveCommand(Direction.South);
                 if (command == "move west") return new MoveCommand(Direction.West);
                 if (command == "activate fountain") return new EnableFountainCommand();
+                if (command == "shoot north") return new AttackCommand(Direction.North);
+                if (command == "shoot east") return new AttackCommand(Direction.East);
+                if (command == "shoot south") return new AttackCommand(Direction.South);
+                if (command == "shoot west") return new AttackCommand(Direction.West);
 
                 ConsoleUtilities.WriteLine($"I did not understand {command}, please try again.", ConsoleColor.Red);
 
@@ -125,8 +126,10 @@ namespace TheFountainOfObjects
             return false;
         }
 
-
-
+        public bool IsEnemyNearby(Location enemyLocation)
+        {
+            return Math.Abs(Player.Location.Row - enemyLocation.Row) <= 1 && Math.Abs(Player.Location.Column - enemyLocation.Column) <= 1;
+        }
         public bool HasWon => IsFountainActive && CurrentRoom == RoomType.Exit && Player.PlayerAlive;
 
         public RoomType CurrentRoom => Map.GetRoomTypeAtLocation(Player.Location);
