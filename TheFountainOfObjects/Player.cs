@@ -11,7 +11,7 @@ namespace TheFountainOfObjects
     {
         public Location Location { get; set; }
         public bool PlayerAlive { get; set; } = true;
-
+        public int Arrows { get; set; } = 5;
         public Player(Location start)
         {
             Location = start;

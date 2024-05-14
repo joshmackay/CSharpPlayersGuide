@@ -62,6 +62,18 @@ namespace TheFountainOfObjects
 
         }
 
+        public void DisplayStartMessages()
+        {
+            ConsoleUtilities.WriteLine("You enter the Cavern of Objects, a maze of rooms filled with dangerous pits in search" +
+                " of the Fountain of Objects. Light is visible only in the entrance, and no other light is seen anywhere in the caverns.\r\n" +
+                "You must navigate the Caverns with your other senses. Find the Fountain of Objects, activate it, and return to the entrance.\n", ConsoleColor.Green);
+            ConsoleUtilities.WriteLine("Look out for pits. You will feel a breeze if a pit is in an adjacent room. If you enter a room with a pit, you will die.\n", ConsoleColor.DarkMagenta);
+            ConsoleUtilities.WriteLine("Maelstroms are violent forces of sentient wind. Entering a room with one could transport you to any other location " +
+                "in the caverns. You will be able to hear their growling and groaning in nearby rooms.\n", ConsoleColor.DarkMagenta);
+            ConsoleUtilities.WriteLine("Amaroks roam the caverns. Encountering one is certain death, but you can smell their rotten stench in nearby rooms.\n", ConsoleColor.DarkMagenta);
+            ConsoleUtilities.WriteLine("You carry with you a bow and a quiver of arrows. You can use them to shoot monsters in the caverns but be warned: you have a limited supply\n", ConsoleColor.DarkMagenta);
+        }
+
         public void DisplayStatus()
         {
             ConsoleUtilities.WriteLine("-------------------------------------------------------------", ConsoleColor.Green);
@@ -92,6 +104,7 @@ namespace TheFountainOfObjects
                 if (command == "shoot east") return new AttackCommand(Direction.East);
                 if (command == "shoot south") return new AttackCommand(Direction.South);
                 if (command == "shoot west") return new AttackCommand(Direction.West);
+                if (command == "help") return new HelpCommand();
 
                 ConsoleUtilities.WriteLine($"I did not understand {command}, please try again.", ConsoleColor.Red);
 

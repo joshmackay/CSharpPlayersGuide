@@ -63,6 +63,12 @@ namespace TheFountainOfObjects
 
         public void Execute(Game game)
         {
+            if (game.Player.Arrows < 1)
+            {
+                ConsoleUtilities.WriteLine("You have run out of Arrows!  Be careful!", ConsoleColor.Red);
+                return;
+            }
+
             var playerLoc = game.Player.Location;
             var targetLoc = AttackDirection switch
             {
@@ -82,6 +88,18 @@ namespace TheFountainOfObjects
             }
 
         }
+
+
     }
 
+    public class HelpCommand : ICommand
+    {
+
+        public void Execute(Game game)
+        {
+            ConsoleUtilities.WriteLine("Command: move [direction], Moves player in specified direction if destination in within map.", ConsoleColor.Green);
+            ConsoleUtilities.WriteLine("Command: shoot [direction], Fires an arrow in specified into next room, if player has arrows. If a monster is in that room, it will die.", ConsoleColor.Green);
+            ConsoleUtilities.WriteLine("Command: activate fountain, If player is in the fountain room, this will activate it which is a requirement to win the game.", ConsoleColor.Green);
+        }
+    }
 }

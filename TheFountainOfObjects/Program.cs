@@ -19,6 +19,7 @@ Game game = Console.ReadLine() switch
     "medium" => CreateMediumGame(),
     "large" => CreateLargeGame(),
 };
+game.DisplayStartMessages();
 game.Run();
 
 Game CreateSmallGame()
